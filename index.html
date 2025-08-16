@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clinical Decision Tool: Patients with Barriers to Examination</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+        }
+        details > summary {
+            list-style: none;
+        }
+        details > summary::-webkit-details-marker {
+            display: none;
+        }
+        details[open] summary .arrow-down {
+            transform: rotate(180deg);
+        }
+        .callout-box {
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #ffffff;
+            border-width: 1px;
+            border-left-width: 4px;
+        }
+        .consequence-box {
+            border-color: #fca5a5; /* red-300 */
+        }
+        .outcome-box {
+            border-color: #6ee7b7; /* emerald-300 */
+        }
+        .evidence-box {
+            border-color: #93c5fd; /* blue-300 */
+        }
+        .flow-arrow {
+            color: #cbd5e1; /* slate-300 */
+        }
+        .pill-btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 500;
+            transition: all 0.2s ease-in-out;
+            border: 1px solid #e2e8f0; /* slate-200 */
+            color: #475569; /* slate-600 */
+        }
+        .pill-btn:hover {
+            background-color: #f1f5f9; /* slate-100 */
+        }
+        .pill-btn.active {
+            background-color: #0284c7; /* sky-600 */
+            color: #ffffff;
+            border-color: #0284c7; /* sky-600 */
+        }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-3xl">
+        <!-- Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-800">Clinical Decision Tool</h1>
+            <p class="text-base text-slate-500 mt-2">A structured approach for patients with barriers to examination.</p>
+        </header>
+
+        <main class="space-y-6">
+            <!-- Entry Question -->
+            <section id="entry-point" class="bg-white p-6 rounded-xl shadow-sm border border-slate-200">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-slate-800">Start Here: Identify the Barrier</h2>
+                    <button id="reset-btn" class="hidden text-sm text-sky-600 hover:text-sky-800 font-medium">Start Over</button>
+                </div>
+                <p class="mt-2 text-slate-500 mb-6">Which barrier best explains the patient's behaviour?</p>
+                <nav id="barrier-options" class="flex flex-wrap gap-3">
+                    <button data-target="branch-a" class="pill-btn">Sensory/Cognitive</button>
+                    <button data-target="branch-b" class="pill-btn">Language/Cultural</button>
+                    <button data-target="branch-c" class="pill-btn">Confrontation</button>
+                </nav>
+                 <details class="bg-slate-50/50 rounded-lg border mt-6">
+                    <summary class="p-4 cursor-pointer font-medium flex justify-between items-center text-slate-600">
+                        What if the barrier is unclear?
+                        <svg class="w-5 h-5 text-slate-400 arrow-down transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </summary>
+                    <div class="p-4 border-t border-slate-200">
+                        <p class="mb-3">Perform a brief <strong>Context Scan (1–2 min)</strong>: check vitals, analgesia timing, ward notes, and ask a ward ally for observations.</p>
+                        <div class="callout-box consequence-box mb-3 text-sm">
+                            <h4 class="font-semibold text-red-800">Consequence if skipped:</h4>
+                            <p class="text-red-700">Risk of misattributing behaviour (e.g., agitation from hypoglycaemia or pain).</p>
+                        </div>
+                         <div class="callout-box outcome-box text-sm">
+                            <h4 class="font-semibold text-emerald-800">Outcome:</h4>
+                            <p class="text-emerald-700">Either the barrier emerges (select a pathway above) or the patient stabilises with universal measures.</p>
+                        </div>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Branches Container -->
+            <div id="branches-container" class="space-y-6">
+
+                <!-- Branch A -->
+                <section id="branch-a" class="branch-content hidden">
+                    <h2 class="text-xl font-semibold text-sky-700 mb-4">Pathway A: Sensory/Cognitive Barrier</h2>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">
+                            Step 1: Preparation
+                            <svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Gather insights, pre-stage equipment. <strong class="font-medium">Outcome:</strong> Smoother, faster exam.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Approach unprepared. <strong class="font-medium">Consequence:</strong> Stop-start interaction, exam abandoned.</p></div>
+                            <div class="callout-box evidence-box"><p><strong class="font-semibold text-blue-800">Practice:</strong> Announce self, narrate actions, ask consent, use spatial cues.</p></div>
+                        </div>
+                    </details>
+                    <div class="text-2xl text-center my-3 flow-arrow">&#11015;</div>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">
+                            Step 2: Orientation & Narrated Exam
+                            <svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                         <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Speak first, state role, describe each step. <strong class="font-medium">Outcome:</strong> Preserves dignity, yields essential data.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Silent approach. <strong class="font-medium">Consequence:</strong> Fear, withdrawal, refusal.</p></div>
+                        </div>
+                    </details>
+                    <div class="text-2xl text-center my-3 flow-arrow">&#11015;</div>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">
+                            Step 3: Check Treatable Contributors
+                            <svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </summary>
+                         <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Screen for pain, hypoxia, glucose, meds. <strong class="font-medium">Outcome:</strong> Engagement improves without coercion.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Persist without addressing physiology. <strong class="font-medium">Consequence:</strong> Escalation, inaccurate assessment.</p></div>
+                        </div>
+                    </details>
+                </section>
+
+                <!-- Branch B -->
+                <section id="branch-b" class="branch-content hidden">
+                    <h2 class="text-xl font-semibold text-amber-700 mb-4">Pathway B: Language/Cultural Barrier</h2>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Step 1: Qualified Language Support<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Use qualified interpreter. <strong class="font-medium">Outcome:</strong> Better comprehension, safer consent.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Use ad-hoc interpreter. <strong class="font-medium">Consequence:</strong> Increased adverse events, inequity.</p></div>
+                        </div>
+                    </details>
+                    <div class="text-2xl text-center my-3 flow-arrow">&#11015;</div>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Step 2: Dual-Medium Communication<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Use home language for warmth, English for continuity. <strong class="font-medium">Outcome:</strong> Reduced mistrust.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Use only one language. <strong class="font-medium">Consequence:</strong> Cold/transactional or low-retention.</p></div>
+                        </div>
+                    </details>
+                    <div class="text-2xl text-center my-3 flow-arrow">&#11015;</div>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Step 3: Values Alignment<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Limited self-disclosure, acknowledge beliefs respectfully. <strong class="font-medium">Outcome:</strong> Rapport without collusion.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Over-share or debate beliefs. <strong class="font-medium">Consequence:</strong> Reinforce mistrust or trigger defensiveness.</p></div>
+                        </div>
+                    </details>
+                </section>
+
+                <!-- Branch C -->
+                <section id="branch-c" class="branch-content hidden">
+                    <h2 class="text-xl font-semibold text-rose-700 mb-4">Pathway C: Confrontation/Diagnosis-Fixation</h2>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Step 1: Validate First<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> State "Your pain is real." Shift to functional goals. <strong class="font-medium">Outcome:</strong> Lowers arousal, opens collaboration.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Lead with rebuttal. <strong class="font-medium">Consequence:</strong> Escalation, non-adherence.</p></div>
+                        </div>
+                    </details>
+                    <div class="text-2xl text-center my-3 flow-arrow">&#11015;</div>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Step 2: MI-Style Direction<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Use Motivational Interviewing (OARS). <strong class="font-medium">Outcome:</strong> Collaborative plan, safety maintained.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Argue facts. <strong class="font-medium">Consequence:</strong> Power struggle, disengagement.</p></div>
+                        </div>
+                    </details>
+                    <div class="text-2xl text-center my-3 flow-arrow">&#11015;</div>
+                    <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                        <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Step 3: Offer MDT & Non-Pharm Options<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                        <div class="mt-4 pt-4 border-t space-y-3 text-sm">
+                            <div class="callout-box outcome-box"><p><strong class="font-semibold text-emerald-800">YES:</strong> Brief action plan (activity, sleep), psych/physio. <strong class="font-medium">Outcome:</strong> Aligns with guidance, fosters self-efficacy.</p></div>
+                            <div class="callout-box consequence-box"><p><strong class="font-semibold text-red-800">NO:</strong> Reassure-and-dismiss or chase opioids for CPP. <strong class="font-medium">Consequence:</strong> Dependency, persistent disability.</p></div>
+                        </div>
+                    </details>
+                </section>
+                
+                <!-- Universal Safety Net & References -->
+                <section id="universal-content" class="branch-content hidden space-y-4">
+                    <div class="border-t-2 border-slate-200 pt-6">
+                        <h2 class="text-xl font-semibold text-slate-700 text-center mb-4">Universal Safety Net & References</h2>
+                        <div class="space-y-4">
+                            <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                                <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">Universal Safety Net<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                                <div class="mt-4 pt-4 border-t space-y-2 text-sm">
+                                    <p><strong>Summarise & Teach-back:</strong> Improves adherence, fewer bounce-backs.</p>
+                                    <p><strong>MDT Framing:</strong> "We work as a team" reduces triangulation and stabilises the plan.</p>
+                                    <p><strong>Escalation Pathway:</strong> Activate de-escalation protocol to control risk and salvage therapeutic relationship.</p>
+                                </div>
+                            </details>
+                            <details class="bg-white p-4 rounded-xl shadow-sm border border-slate-200">
+                                <summary class="font-semibold text-lg cursor-pointer flex justify-between items-center text-slate-800">References & Rationale<svg class="w-5 h-5 arrow-down transition-transform text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></summary>
+                                <div class="mt-4 pt-4 border-t space-y-3 text-sm text-slate-600">
+                                    <p><strong class="text-slate-700">Vision impairment:</strong> Introduce self, describe actions, consent before touch. (PMC, WHS, CMS)</p>
+                                    <p><strong class="text-slate-700">Language access:</strong> Qualified interpreters lower error/malpractice risk. (Joint Commission, AHRQ, Journal of Ethics)</p>
+                                    <p><strong class="text-slate-700">De-escalation:</strong> Project BETA consensus; concise, calm, collaborative. (PMC, PubMed, DBS Alliance)</p>
+                                    <p><strong class="text-slate-700">Chronic pain:</strong> NICE NG193—holistic assessment, shared plans, favour non-pharm options. (NICE, PMC, ResearchGate)</p>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-10 text-xs text-slate-400">
+            <p>This tool is intended for clinical decision support and does not replace professional medical judgment.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Script to handle the interactive workflow
+        const barrierButtons = document.querySelectorAll('.pill-btn');
+        const branchContents = document.querySelectorAll('.branch-content');
+        const entryPointSection = document.getElementById('entry-point');
+        const resetButton = document.getElementById('reset-btn');
+        const barrierOptions = document.getElementById('barrier-options');
+
+        function showBranch(targetId, clickedButton) {
+            // Manage active state for buttons
+            barrierButtons.forEach(btn => btn.classList.remove('active'));
+            clickedButton.classList.add('active');
+
+            // Hide all branches first
+            branchContents.forEach(content => content.classList.add('hidden'));
+
+            // Show the target branch and universal content
+            const targetBranch = document.getElementById(targetId);
+            const universalContent = document.getElementById('universal-content');
+            if (targetBranch) targetBranch.classList.remove('hidden');
+            if (universalContent) universalContent.classList.remove('hidden');
+
+            // Show the reset button
+            resetButton.classList.remove('hidden');
+        }
+
+        function resetView() {
+            branchContents.forEach(content => content.classList.add('hidden'));
+            barrierButtons.forEach(btn => btn.classList.remove('active'));
+            resetButton.classList.add('hidden');
+        }
+
+        // Add click listeners to barrier buttons
+        barrierButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const targetId = e.currentTarget.getAttribute('data-target');
+                showBranch(targetId, e.currentTarget);
+            });
+        });
+
+        // Add click listener to reset button
+        resetButton.addEventListener('click', resetView);
+    </script>
+</body>
+</html>
